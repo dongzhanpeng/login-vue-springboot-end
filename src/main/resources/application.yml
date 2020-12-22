@@ -1,0 +1,8 @@
+server:
+  port: 33702
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/login_test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
