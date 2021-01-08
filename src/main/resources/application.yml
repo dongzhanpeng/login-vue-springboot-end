@@ -6,3 +6,12 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     username: root
     password: root
+  mail:
+    host: smtp.163.com
+    username: dzp961207@163.com
+    password: BFGUTRYNZDCTEQUY
+    default-encoding: UTF-8
+    fromMail:
+      sender: dzp961207@163.com
+config:
+  uuid: ${random.uuid}

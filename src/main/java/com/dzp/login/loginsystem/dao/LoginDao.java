@@ -2,10 +2,8 @@ package com.dzp.login.loginsystem.dao;
 
 import com.dzp.login.loginsystem.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 
 /**
  * @Author: dongzhanpeng
@@ -20,5 +18,11 @@ public interface LoginDao extends JpaRepository<UserEntity,Integer> {
      */
     public static final String DAO_BEAN_NAME = "loginDao";
 
-    UserEntity findByUsernameAndPassword(String userName,String password);
+    /**
+     * 根据用户名和密码查询
+     * @param userName
+     * @param password
+     * @return
+     */
+    UserEntity findByUsername(String userName);
 }
