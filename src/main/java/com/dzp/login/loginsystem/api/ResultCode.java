@@ -7,7 +7,7 @@ package com.dzp.login.loginsystem.api;
  * @Date: 2020-12-21 13:44
  * @Version 1.0
  */
-public enum ResultCode implements IErrorCode {
+public enum ResultCode implements IResultCode {
     SUCCESS(200, "操作成功"),
     FAILED(500, "操作失败"),
     VALIDATE_FAILED(404, "该用户尚未注册"),

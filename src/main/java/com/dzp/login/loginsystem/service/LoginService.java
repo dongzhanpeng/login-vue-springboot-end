@@ -24,6 +24,13 @@ public class LoginService implements LoginServiceIml {
     @Autowired
     private LoginDao loginDao;
 
+    /**
+     * 登录Service
+     *
+     * @param userName
+     * @param password
+     * @return
+     */
     @Override
     public CommonResult<String> findUserNameAndPassword(String userName, String password) {
         //调用dao层
@@ -33,7 +40,7 @@ public class LoginService implements LoginServiceIml {
         //判断是否存在这条记录
         if (ObjectUtils.isEmpty(userEntity)) {
             return CommonResult.validateFailed();
-        } else if (Objects.equals(userName,userEntity.getUsername()) && !Objects.equals(password,userEntity.getPassword())) {       //判断密码是否正确
+        } else if (Objects.equals(userName, userEntity.getUsername()) && !Objects.equals(password, userEntity.getPassword())) {       //判断密码是否正确
             return CommonResult.failed("密码错误，请重新输入");
         } else if (Objects.equals(userName, userEntity.getUsername()) && Objects.equals(password, userEntity.getPassword())) {      //判断是否是该用户
             return CommonResult.success(userName);

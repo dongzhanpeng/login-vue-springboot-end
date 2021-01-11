@@ -6,13 +6,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-@Repository(GetCaptchaDao.DAO_BEAN_NAME)
-public interface GetCaptchaDao extends JpaRepository<UserEntity,Integer> {
+@Repository(ForgetPasswordDao.DAO_BEAN_NAME)
+public interface ForgetPasswordDao extends JpaRepository<UserEntity,Integer> {
 
     /**
      * Spring注册时的名称
      */
-    public static final String DAO_BEAN_NAME = "getCaptchaDao";
+    public static final String DAO_BEAN_NAME = "forgetPasswordDao";
 
 
 
@@ -29,4 +29,6 @@ public interface GetCaptchaDao extends JpaRepository<UserEntity,Integer> {
     @Modifying
     @Query(value = "update UserEntity ue set ue.captcha=?1 where ue.email=?2")
     void updateCaptchaByEmail(String captcha,String email);
+
+    UserEntity findByPhonenumber(String phoneNumber);
 }

@@ -26,20 +26,22 @@ public class RegisterService implements RegisterServiceIml {
     @Autowired
     private RegisterDao registerDao;
 
-    @Qualifier("userEntity")
-    @Autowired
-    private UserEntity userEntity;
-
+    /**
+     * 注册Service
+     *
+     * @param registerUserEntiy
+     * @return
+     */
     @Override
     public CommonResult doRegister(RegisterUserEntiy registerUserEntiy) {
 
         //获取用户名
         String username = registerUserEntiy.getUsername();
         //查询是否存在相同的用户
-        UserEntity userEntity = registerDao.findByUsername(username);
+        UserEntity userEntitySame = registerDao.findByUsername(username);
 
-        if (!ObjectUtils.isEmpty(userEntity)) {
-            String registerUsername = userEntity.getUsername();
+        if (!ObjectUtils.isEmpty(userEntitySame)) {
+            String registerUsername = userEntitySame.getUsername();
             if (username.equals(registerUsername)) {
                 return CommonResult.failed("注册失败，用户名已存在");
             }
@@ -50,7 +52,12 @@ public class RegisterService implements RegisterServiceIml {
         return result;
     }
 
-    //区分是邮箱注册还是手机号注册
+    /**
+     * 区分是邮箱注册还是手机号注册
+     *
+     * @param registerUserEntiy
+     * @return
+     */
     public CommonResult IsPhoneOrEmail(RegisterUserEntiy registerUserEntiy) {
         String emailOrPhoneNumber = registerUserEntiy.getEmailoriphonenumber();
         if (emailOrPhoneNumber.contains("@") && emailOrPhoneNumber.contains(".com")) {
@@ -59,24 +66,31 @@ public class RegisterService implements RegisterServiceIml {
             return result;
         } else if (emailOrPhoneNumber.length() == 11) {
             String phoneNumber = emailOrPhoneNumber;
-                CommonResult result = verifyPhoneNumberIsNull(registerUserEntiy,phoneNumber);
+            CommonResult result = verifyPhoneNumberIsNull(registerUserEntiy, phoneNumber);
             return result;
-        }else {
+        } else {
             return CommonResult.failed("请输入合法的手机号或邮箱号");
         }
     }
 
-    //验证手机号是否被注册
-    public CommonResult verifyPhoneNumberIsNull(RegisterUserEntiy registerUserEntiy,String phoneNumber) {
+    /**
+     * 验证手机号是否被注册
+     *
+     * @param registerUserEntiy
+     * @param phoneNumber
+     * @return
+     */
+    public CommonResult verifyPhoneNumberIsNull(RegisterUserEntiy registerUserEntiy, String phoneNumber) {
         UserEntity userEntitys = registerDao.findByPhonenumber(phoneNumber);
         if (!ObjectUtils.isEmpty(userEntitys)) {
-            if (phoneNumber.equals(userEntitys.getPhonenumber())){
+            if (phoneNumber.equals(userEntitys.getPhonenumber())) {
                 return CommonResult.failed("手机号已被注册，请重新输入");
             }
-        }else {
+        } else {
             String username = registerUserEntiy.getUsername();
             String password = registerUserEntiy.getPassword();
 
+            UserEntity userEntity = new UserEntity();
             //密码使用md5加密
             password = DigestUtils.md5DigestAsHex(password.getBytes());
             userEntity.setUsername(username);
@@ -87,16 +101,24 @@ public class RegisterService implements RegisterServiceIml {
         return CommonResult.success("您已使用手机号注册成功！！");
     }
 
-    //验证邮箱是否被注册
-    public CommonResult verifyEmailIsNull(RegisterUserEntiy registerUserEntiy,String email) {
+    /**
+     * 验证邮箱是否被注册
+     *
+     * @param registerUserEntiy
+     * @param email
+     * @return
+     */
+    public CommonResult verifyEmailIsNull(RegisterUserEntiy registerUserEntiy, String email) {
         UserEntity userEntitys = registerDao.findByEmail(email);
         if (!ObjectUtils.isEmpty(userEntitys)) {
-            if (email.equals(userEntitys.getEmail())){
+            if (email.equals(userEntitys.getEmail())) {
                 return CommonResult.failed("邮箱已被注册，请重新输入");
             }
-        }else {
+        } else {
             String username = registerUserEntiy.getUsername();
             String password = registerUserEntiy.getPassword();
+
+            UserEntity userEntity = new UserEntity();
 
             //密码使用md5加密
             password = DigestUtils.md5DigestAsHex(password.getBytes());

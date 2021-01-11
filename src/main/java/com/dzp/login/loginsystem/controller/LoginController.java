@@ -24,6 +24,12 @@ public class LoginController {
     @Autowired
     private LoginServiceIml loginServiceIml;
 
+    /**
+     * 登录
+     *
+     * @param user
+     * @return
+     */
     @RequestMapping(value = "/admin/login", method = RequestMethod.POST)
     public CommonResult login(@RequestBody UserEntity user) {
 

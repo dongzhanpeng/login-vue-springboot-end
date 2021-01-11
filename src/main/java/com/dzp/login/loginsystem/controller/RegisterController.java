@@ -22,8 +22,14 @@ public class RegisterController {
     @Autowired
     private RegisterServiceIml registerServiceIml;
 
+    /**
+     * 注册
+     *
+     * @param registerUserEntiy
+     * @return
+     */
     @RequestMapping(value = "/admin/register", method = RequestMethod.POST)
-    public CommonResult doRegister(@RequestBody RegisterUserEntiy registerUserEntiy){
+    public CommonResult doRegister(@RequestBody RegisterUserEntiy registerUserEntiy) {
         CommonResult commonResult = registerServiceIml.doRegister(registerUserEntiy);
         return commonResult;
     }

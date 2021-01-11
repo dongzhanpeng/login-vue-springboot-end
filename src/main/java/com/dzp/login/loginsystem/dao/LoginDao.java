@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  * @Version 1.0
  */
 @Repository(LoginDao.DAO_BEAN_NAME)
-public interface LoginDao extends JpaRepository<UserEntity,Integer> {
+public interface LoginDao extends JpaRepository<UserEntity, Integer> {
 
     /**
      * Spring注册时的名称.
@@ -20,8 +20,8 @@ public interface LoginDao extends JpaRepository<UserEntity,Integer> {
 
     /**
      * 根据用户名和密码查询
+     *
      * @param userName
-     * @param password
      * @return
      */
     UserEntity findByUsername(String userName);
