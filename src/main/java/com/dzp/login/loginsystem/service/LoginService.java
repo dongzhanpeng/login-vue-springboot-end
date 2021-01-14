@@ -1,9 +1,11 @@
 package com.dzp.login.loginsystem.service;
 
+import cn.hutool.crypto.SecureUtil;
 import com.dzp.login.loginsystem.api.CommonResult;
 import com.dzp.login.loginsystem.dao.LoginDao;
 import com.dzp.login.loginsystem.entity.UserEntity;
 import com.dzp.login.loginsystem.serviceIml.LoginServiceIml;
+import org.apache.catalina.security.SecurityUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,7 +37,8 @@ public class LoginService implements LoginServiceIml {
     public CommonResult<String> findUserNameAndPassword(String userName, String password) {
         //调用dao层
         UserEntity userEntity = loginDao.findByUsername(userName);
-        password = DigestUtils.md5DigestAsHex(password.getBytes());
+//      password = DigestUtils.md5DigestAsHex(password.getBytes());
+        password = SecureUtil.md5(password);
 
         //判断是否存在这条记录
         if (ObjectUtils.isEmpty(userEntity)) {
